@@ -13,3 +13,6 @@ PostgreSQL kullanıcı çıktısında healthy. API kodu aktarımdan sonra 700/60
 
 ## Canlı kurulum doğrulaması — 2026-10-13
 Nginx test/reload başarılı. https://games.restinblocks.men altında OltaRotası 0.1.0 çalışıyor. TLS doğrulaması bypass edilmedi. /ready PostGIS bağlantısını doğruluyor, habitat_data=unavailable; gerçek mera/hava modeli henüz bağlı değil. Sonraki iş Flutter API entegrasyonu ve veri katmanları.
+
+## Av olasılığı araştırması — 2026-10-13
+Kullanıcı veri entegrasyonundan önce bilimsel araştırma ve ileride gün/saat bazlı yüzde istedi. Frontend `docs/CATCH_PROBABILITY_RESEARCH.md` kaynakları, kanıt sınırlarını, tür ayrımlarını, av eforu/sıfır av kayıtlarını, model/kalibrasyon ve sade UI önerisini içerir. Backend `docs/PROBABILITY_MODEL.md` uygulama kapılarını kaydeder. İki saatlik en az bir hedef balık olayı önerildi; henüz ürün/API kararı uygulanmadı. Basınç ve ay aday girdiler; etkileri sabit katsayıyla varsayılmaz. Model kalibre edilene kadar yüzde null kalır. Bu aşama yalnız dokümantasyon; gerçek veri veya sunucu değişikliği yok.
