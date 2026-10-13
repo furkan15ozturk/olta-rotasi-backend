@@ -7,3 +7,6 @@ VPS sudo şifre istiyor ve kullanıcı Docker grubunda değil. Parola/anahtar re
 Eski Pomodoro/Memoria/Games dosyaları yedeklenip kaldırıldı. Harici eski DB'ler incelenmedi. Ubuntu 25.04 destek dışı, yükseltme planı gerekli.
 Veri katmanları, hava API, av modeli ve Flutter bağlantısı sıradaki işler.
 Frontend ayrı repo; burası backend + deploy klasör yapısını korur.
+
+## API container izin düzeltmesi
+PostgreSQL kullanıcı çıktısında healthy. API kodu aktarımdan sonra 700/600 root sahipliğiyle imaja alındığından non-root appuser okuyamıyordu. Dockerfile COPY --chown=10001:10001 ile düzeltildi; macOS ._* dosyaları build context dışına alındı. Yeniden build ve canlı sağlık doğrulaması bekleniyor. Yerel 7030 erişilemiyor; mevcut HTTPS {status:ok} OltaRotası yayını kanıtı değildir.
