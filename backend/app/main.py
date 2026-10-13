@@ -115,3 +115,14 @@ def point_details(request: PointRequest):
         'habitat': {'status': 'unavailable', 'class': None},
         'catch_probability': None,
     }
+
+
+@app.post('/v1/forecast')
+def forecast(request: PointRequest):
+    from .weather import lookup_weather
+    from urllib.error import URLError
+    try:
+        result = lookup_weather(request.latitude, request.longitude)
+    except (URLError, TimeoutError, OSError, ValueError, KeyError, TypeError):
+        raise HTTPException(503, 'Weather source temporarily unavailable') from None
+    return {'query': request.model_dump(), 'forecast': result}
