@@ -1,3 +1,14 @@
+# Güncel devir özeti — Astra / 13 Ekim 2026
+
+Kullanıcı kalan işi Astra'ya devrediyor; bu agent burada durdu. Ana devir belgesi frontend reposunda: `/Users/anilozturk/Projects/olta_rotasi/docs/ASTRA_HANDOFF.md`. Aşağıdaki eski notlar tarihçedir.
+- /v1/point ve /v1/forecast canlı HTTPS/Dart istemcisiyle doğrulandı; forecast arşivi stored.
+- /v1/marine kodu hazır, kaynak adaptörü ve 15 backend testi geçti. main.py/weather.py/marine.py/requirements.txt VPS'ye aktarıldı; yeni yayın henüz doğrulanmadı. Kullanıcının son healthy mesajı hava sürümüne aitti.
+- Önce marine endpoint'in zaten yayında olup olmadığını kontrol et. Gerekirse kullanıcıdaki sudo ile `cd /home/furkanozturk/MyProjects/olta_rotasi && sudo docker compose -f deploy/compose.yaml up -d --build --wait api`; ardından 7 gün/archive_status stored ve eski endpoint'ler kontrol edilir.
+- Habitat ve kalibre av yüzdesi yok. Sonraki T05 Gülbahçe küçük habitat pilotu; kullanıcının kullanım kolaylığı isteğini koru.
+- Git main pushlandı. Şifre/anahtar/.env commit edilmez; diğer VPS projeleri korunur.
+
+---
+
 # Güncel durum — 2026-10-13
 
 VPS: furkanozturk@57.131.22.192, /home/furkanozturk/MyProjects/olta_rotasi.
