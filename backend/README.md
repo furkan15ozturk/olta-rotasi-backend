@@ -1,6 +1,6 @@
 # OltaRotası API
 
-FastAPI başlangıç servisi; gerçek habitat/çevresel veri ve öneri modeli henüz bağlı değildir.
+FastAPI servisi; gerçek derinlik ve hava bağlantıları var. Deniz/ay yayın durumu HANDOFF.md içinde; habitat ve av öneri modeli henüz yok.
 
 - GET /health: process liveness.
 - GET /ready: PostgreSQL/PostGIS bağlantısı; veri kapsamı hazır olduğu anlamına gelmez.
