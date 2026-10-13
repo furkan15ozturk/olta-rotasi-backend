@@ -15,3 +15,5 @@ Docker Compose API'yi yalnız 127.0.0.1:7030'a açar. DB dışa port açmaz. Ngi
 Kurulum: `sudo bash deploy/install.sh`. Script mevcut aktif Games config üzerine yazmaz. Sertifika geçerliliğini kontrol eder. Sertifika yenilemesi ayrıca Certbot renewal yapılandırmasıyla doğrulanmalıdır.
 Geri alma: ilgili Nginx linkini kaldırıp eski retired yapılandırmasını geri yükle; `nginx -t` ve reload. Servisleri durdurmak için `sudo docker compose -f deploy/compose.yaml down`; veri volume'u korunur. `down -v` veri siler, rutin işlem değildir.
 VPS Ubuntu 25.04 destek dışı; desteklenen sürüme geçiş planı sürüyor. Harici eski proje DB'leri henüz temizlenmedi.
+
+POST /v1/point: latitude/longitude (İzmir pilot kutusu) → gerçek EMODnet DTM 2024 en yakın grid hücresi. Yanıtta depth_m, grid koordinatı, interpolation, LAT referansı ve kaynak/erişim tarihi. no_data ve non_negative_elevation derinlik sıfır değildir. Kaynak erişim sorunu 503. Habitat/yakalama yüzdesi henüz unavailable/null. Bu değer navigasyon veya kıyıda hassas ölçüm için değildir.

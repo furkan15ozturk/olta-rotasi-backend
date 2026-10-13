@@ -80,3 +80,38 @@ def search(request: SearchRequest):
         },
         "catch_probability": None,
     }
+
+
+class PointRequest(BaseModel):
+    latitude: float
+    longitude: float
+
+    @field_validator('latitude')
+    @classmethod
+    def pilot_latitude(cls, value):
+        if not 37.7 <= value <= 39.2:
+            raise ValueError('Outside Izmir pilot latitude')
+        return value
+
+    @field_validator('longitude')
+    @classmethod
+    def pilot_longitude(cls, value):
+        if not 25.9 <= value <= 27.5:
+            raise ValueError('Outside Izmir pilot longitude')
+        return value
+
+
+@app.post('/v1/point')
+def point_details(request: PointRequest):
+    from .bathymetry import lookup_depth
+    from urllib.error import URLError
+    try:
+        depth = lookup_depth(request.latitude, request.longitude)
+    except (URLError, TimeoutError, OSError, ValueError, KeyError):
+        raise HTTPException(503, 'Depth source temporarily unavailable') from None
+    return {
+        'query': request.model_dump(),
+        'bathymetry': depth,
+        'habitat': {'status': 'unavailable', 'class': None},
+        'catch_probability': None,
+    }
