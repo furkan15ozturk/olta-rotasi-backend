@@ -1,0 +1,42 @@
+name: oltarotasi
+services:
+  api:
+    build: ../backend
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:7030:8000"
+    environment:
+      DATABASE_URL: "postgresql://oltarotasi:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}@db:5432/oltarotasi"
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+  db:
+    image: postgis/postgis:16-3.5
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: oltarotasi
+      POSTGRES_USER: oltarotasi
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}"
+    volumes:
+      - database:/var/lib/postgresql/data
+      - ../backend/db:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U oltarotasi -d oltarotasi"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+volumes:
+  database:
