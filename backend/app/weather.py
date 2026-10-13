@@ -80,7 +80,7 @@ def normalize(raw, now):
     }
 
 
-def archive_forecast(latitude, longitude, retrieved_at, raw):
+def archive_forecast(latitude, longitude, retrieved_at, raw, provider='open-meteo'):
     try:
         with psycopg.connect(os.environ['DATABASE_URL'], connect_timeout=3) as connection:
             connection.execute('''CREATE TABLE IF NOT EXISTS forecast_snapshots (
@@ -88,7 +88,7 @@ def archive_forecast(latitude, longitude, retrieved_at, raw):
                 longitude double precision NOT NULL, retrieved_at timestamptz NOT NULL,
                 provider text NOT NULL, payload jsonb NOT NULL)''')
             connection.execute('INSERT INTO forecast_snapshots(latitude, longitude, retrieved_at, provider, payload) VALUES (%s,%s,%s,%s,%s)',
-                               (latitude, longitude, retrieved_at, 'open-meteo', Jsonb(raw)))
+                               (latitude, longitude, retrieved_at, provider, Jsonb(raw)))
         return 'stored'
     except (KeyError, psycopg.Error):
         return 'unavailable'

@@ -126,3 +126,14 @@ def forecast(request: PointRequest):
     except (URLError, TimeoutError, OSError, ValueError, KeyError, TypeError):
         raise HTTPException(503, 'Weather source temporarily unavailable') from None
     return {'query': request.model_dump(), 'forecast': result}
+
+
+@app.post('/v1/marine')
+def marine(request: PointRequest):
+    from .marine import lookup_marine
+    from urllib.error import URLError
+    try:
+        result = lookup_marine(request.latitude, request.longitude)
+    except (URLError, TimeoutError, OSError, ValueError, KeyError, TypeError):
+        raise HTTPException(503, 'Marine source temporarily unavailable') from None
+    return {'query': request.model_dump(), 'forecast': result}
